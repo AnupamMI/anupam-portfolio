@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+
+@theme {
+  --color-bg: #000000;
+  --color-primary: #ffffff;
+  --color-accent: #5b8cff;
+  --color-secondary: #7ee7ff;
+  --color-nike-red: #DA3A16;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Manrope", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* ─── Color scheme ───────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: dark;
+
+  /* Motion speed multiplier — set to 0 via JS for reduced-motion users */
+  --motion-speed: 1;
+}
+
+/* ─── Reset & base ───────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-feature-settings: "ss01", "cv01", "cv03", "liga";
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(91, 140, 255, 0.28);
+  color: #ffffff;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(91, 140, 255, 0.45);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) #000;
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid #5b8cff;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ─── Typography scale ───────────────────────────────────────────────────── */
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Glass surfaces ─────────────────────────────────────────────────────── */
+
+.glass {
+  background: rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(80px) saturate(180%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(10, 12, 20, 0.65);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Card-level glass — for section cards, modals */
+.glass-card {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 0 40px rgba(91, 140, 255, 0.06);
+}
+
+/* ─── Liquid card ────────────────────────────────────────────────────────── */
+
+.liquid {
+  background: linear-gradient(135deg,
+      rgba(218, 58, 22, 0.15) 0%,
+      rgba(91, 140, 255, 0.10) 50%,
+      rgba(126, 231, 255, 0.15) 100%);
+  backdrop-filter: blur(120px) saturate(200%);
+  -webkit-backdrop-filter: blur(120px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(circle at 50% 50%,
+      rgba(218, 58, 22, 0.2) 0%,
+      transparent 50%);
+  animation: liquid-pulse calc(8s * var(--motion-speed)) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes liquid-pulse {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(20px, -20px) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* ─── Gradient text ──────────────────────────────────────────────────────── */
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #7ee7ff 50%, #5b8cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #5b8cff 0%, #7ee7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(135deg, #DA3A16 0%, #e8a87c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Letter spacing utilities ───────────────────────────────────────────── */
+
+.tracking-mega {
+  letter-spacing: 0.30em;
+}
+
+.tracking-wide-2 {
+  letter-spacing: 0.15em;
+}
+
+/* ─── Noise texture overlay ──────────────────────────────────────────────── */
+
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E");
+}
+
+/* ─── Grid backgrounds ───────────────────────────────────────────────────── */
+
+/* Dot grid — used in About section */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Line grid — used for hero / code sections */
+.grid-glow {
+  background-image:
+    linear-gradient(rgba(91, 140, 255, 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 140, 255, 0.45) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ─── Scroll utility ─────────────────────────────────────────────────────── */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Writing mode helper ────────────────────────────────────────────────── */
+
+.vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ─── Glow helpers ───────────────────────────────────────────────────────── */
+
+.glow-accent {
+  box-shadow: 0 0 32px rgba(91, 140, 255, 0.18);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 32px rgba(126, 231, 255, 0.18);
+}
+
+.glow-red {
+  box-shadow: 0 0 32px rgba(218, 58, 22, 0.18);
+}
+
+/* Text glow for headings */
+.text-glow-accent {
+  text-shadow: 0 0 40px rgba(91, 140, 255, 0.35);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 40px rgba(126, 231, 255, 0.35);
+}
+
+/* ─── Ambient gradient orbs (place as fixed bg children) ─────────────────── */
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.18;
+  z-index: 0;
+  animation: orb-drift calc(14s * var(--motion-speed)) ease-in-out infinite alternate;
+}
+
+.orb-blue {
+  background: #5b8cff;
+  width: 520px;
+  height: 520px;
+}
+
+.orb-cyan {
+  background: #7ee7ff;
+  width: 360px;
+  height: 360px;
+  animation-delay: -5s;
+}
+
+.orb-red {
+  background: #DA3A16;
+  width: 300px;
+  height: 300px;
+  animation-delay: -9s;
+}
+
+@keyframes orb-drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(30px, -40px) scale(1.12);
+  }
+}
+
+/* ─── Shimmer / skeleton loader ──────────────────────────────────────────── */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 100%);
+  animation: shimmer-sweep calc(1.6s * var(--motion-speed)) infinite;
+}
+
+@keyframes shimmer-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ─── Reveal animations (used alongside Framer Motion) ───────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up calc(0.55s * var(--motion-speed)) ease both;
+}
+
+.animate-fade-in {
+  animation: fade-in calc(0.45s * var(--motion-speed)) ease both;
+}
+
+.animate-scale-in {
+  animation: scale-in calc(0.5s * var(--motion-speed)) ease both;
+}
+
+/* Stagger helpers */
+.delay-1 {
+  animation-delay: calc(0.08s * var(--motion-speed));
+}
+
+.delay-2 {
+  animation-delay: calc(0.16s * var(--motion-speed));
+}
+
+.delay-3 {
+  animation-delay: calc(0.24s * var(--motion-speed));
+}
+
+.delay-4 {
+  animation-delay: calc(0.32s * var(--motion-speed));
+}
+
+/* ─── Cursor dot (optional — activate in JS) ─────────────────────────────── */
+
+#cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5b8cff;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s, opacity 0.2s;
+  mix-blend-mode: difference;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-speed: 0.01;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Print ──────────────────────────────────────────────────────────────── */
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .noise-overlay::before,
+  .orb {
+    display: none;
+  }
+}
