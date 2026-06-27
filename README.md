@@ -152,7 +152,7 @@ https://github.com/AnupamMI
 https://www.linkedin.com/in/anupam-mishra-662b8721a/
 
 **Email**
-[anupammishra2604@gmail.com](mailto:anupammishra2604@gmail.com)
+[anupsm.mishra123@gmail.com](mailto:anupsm.mishra123@gmail.com)
 
 ---
 
