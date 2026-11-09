@@ -5,8 +5,6 @@ const skillCategories = [
   {
     id: "core",
     label: "Core expertise",
-    weapon: "Crimson Gradient",
-    art: "/armory/crimson.svg",
     color: "#DA3A16",
     proficiency: 92,
     skills: [
@@ -26,8 +24,6 @@ const skillCategories = [
   {
     id: "software",
     label: "Software development",
-    weapon: "Compiler Edge",
-    art: "/armory/tech.svg",
     color: "#5B8CFF",
     proficiency: 78,
     skills: [
@@ -42,8 +38,6 @@ const skillCategories = [
   {
     id: "embedded",
     label: "Embedded & IoT",
-    weapon: "Sensor Cleaver",
-    art: "/armory/stone.svg",
     color: "#5DCAA5",
     proficiency: 70,
     skills: [
@@ -57,9 +51,7 @@ const skillCategories = [
   {
     id: "foundations",
     label: "Engineering foundations",
-    weapon: "Golden Algorithm",
-    art: "/armory/gilded.svg",
-    color: "#E6B830",
+    color: "#7B9FFF",
     proficiency: 82,
     skills: [
       { name: "Data Structures & Algorithms", level: 88 },
@@ -94,7 +86,7 @@ function ProficiencyBar({
     <div ref={ref} className="mt-5 pt-4 border-t border-white/[0.06]">
       <div className="flex justify-between items-center mb-2">
         <span className="font-mono text-[10px] tracking-widest text-white/30 uppercase">
-          Power
+          Avg. proficiency
         </span>
         <span className="font-mono text-[11px]" style={{ color }}>
           {value}%
@@ -141,15 +133,18 @@ function SkillTag({
   );
 }
 
-function WeaponRow({
+function SkillCard({
   cat,
+  compact = false,
   index = 0,
 }: {
   cat: (typeof skillCategories)[0];
+  compact?: boolean;
   index?: number;
 }) {
-  const [hovered, setHovered] = useState(false);
   const sorted = [...cat.skills].sort((a, b) => b.level - a.level);
+  const shown = compact ? sorted.slice(0, 6) : sorted;
+  const extra = cat.skills.length - shown.length;
   const avg = Math.round(
     cat.skills.reduce((a, s) => a + s.level, 0) / cat.skills.length
   );
@@ -159,68 +154,38 @@ function WeaponRow({
       initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 16 }}
-      transition={{ duration: 0.45, delay: index * 0.08 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center
-        rounded-2xl border bg-white/[0.018] backdrop-blur-xl p-6 md:p-8 transition-all duration-300"
-      style={{
-        borderColor: hovered ? `${cat.color}55` : "rgba(255,255,255,0.07)",
-        boxShadow: hovered ? `0 0 60px ${cat.color}14` : "none",
-      }}
+      transition={{ duration: 0.45, delay: index * 0.07 }}
+      className="rounded-2xl border border-white/[0.07] bg-white/[0.018] backdrop-blur-xl p-6
+        hover:border-white/[0.14] hover:shadow-[0_0_50px_rgba(91,140,255,0.03)] transition-all duration-300"
     >
-      {/* weapon on its rack */}
-      <div className="lg:col-span-6 flex items-center gap-5">
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-5">
         <span
-          className="flex-shrink-0 w-10 h-10 rounded-full border-2 grid place-items-center font-serif text-lg transition-colors"
-          style={{ borderColor: hovered ? cat.color : "rgba(255,255,255,0.25)", color: hovered ? cat.color : "rgba(255,255,255,0.7)" }}
-        >
-          {index + 1}
+          className="w-2 h-2 rounded-full flex-shrink-0"
+          style={{ background: cat.color }}
+        />
+        <span className="font-mono text-[9px] tracking-[.2em] uppercase text-white/50">
+          {cat.label}
         </span>
-        <div className="relative flex-1">
-          {/* rack pegs */}
-          <span className="absolute left-[18%] top-1/2 -translate-y-1/2 w-2 h-8 rounded-sm bg-white/[0.06]" />
-          <span className="absolute right-[18%] top-1/2 -translate-y-1/2 w-2 h-8 rounded-sm bg-white/[0.06]" />
-          <motion.img
-            src={cat.art}
-            alt={`${cat.weapon}: a double-bladed weapon representing ${cat.label}`}
-            draggable={false}
-            className="relative w-full h-auto select-none"
-            animate={{
-              rotate: hovered ? -4 : 0,
-              scale: hovered ? 1.06 : 1,
-              y: hovered ? -6 : 0,
-            }}
-            transition={{ type: "spring", stiffness: 220, damping: 16 }}
-            style={{
-              filter: hovered
-                ? `drop-shadow(0 0 14px ${cat.color}aa) drop-shadow(0 10px 18px rgba(0,0,0,.6))`
-                : "drop-shadow(0 8px 14px rgba(0,0,0,.55))",
-            }}
-          />
-        </div>
+        <span className="ml-auto font-mono text-[10px] text-white/20 tracking-wider">
+          {cat.skills.length} skills
+        </span>
       </div>
 
-      {/* stats */}
-      <div className="lg:col-span-6">
-        <div className="flex items-baseline gap-3 flex-wrap mb-1">
-          <h3 className="font-serif text-3xl md:text-4xl text-white tracking-tight">
-            {cat.weapon}
-          </h3>
-          <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: cat.color }}>
-            {cat.label}
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2">
+        {shown.map((s) => (
+          <SkillTag key={s.name} name={s.name} level={s.level} color={cat.color} />
+        ))}
+        {extra > 0 && (
+          <span className="inline-block font-mono text-[11px] rounded-full px-3 py-1.5 border border-white/[0.06] text-white/20">
+            +{extra} more
           </span>
-        </div>
-        <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/30 mb-4">
-          {cat.skills.length} abilities
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {sorted.map((s) => (
-            <SkillTag key={s.name} name={s.name} level={s.level} color={cat.color} />
-          ))}
-        </div>
-        <ProficiencyBar value={avg} color={cat.color} />
+        )}
       </div>
+
+      {/* Proficiency bar */}
+      <ProficiencyBar value={avg} color={cat.color} />
     </motion.div>
   );
 }
@@ -255,7 +220,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#DA3A16] mb-4"
         >
-          Capabilities · The Armory
+          Capabilities
         </motion.p>
 
         {/* Heading */}
@@ -267,7 +232,7 @@ export default function Skills() {
           className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl
             text-white tracking-tighter leading-none mb-12"
         >
-          Skills, forged.
+          Skills &amp; stack.
         </motion.h2>
 
         {/* Tab bar */}
@@ -291,9 +256,21 @@ export default function Skills() {
 
         {/* Cards grid */}
         <AnimatePresence mode="wait">
-          <div key={active} className="grid gap-4 grid-cols-1">
+          <div
+            key={active}
+            className={`grid gap-4 ${
+              active === "all"
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+                : "grid-cols-1 sm:grid-cols-2 max-w-2xl"
+            }`}
+          >
             {visible.map((cat, i) => (
-              <WeaponRow key={cat.id} cat={cat} index={i} />
+              <SkillCard
+                key={cat.id}
+                cat={cat}
+                compact={active === "all"}
+                index={i}
+              />
             ))}
           </div>
         </AnimatePresence>

@@ -85,11 +85,6 @@ An NLP tool that parses resumes, finds skill gaps against target roles and recom
 
 **Built with:** React 19 · TypeScript · Vite · Tailwind CSS · Framer Motion · Three.js / React Three Fiber · GSAP · Lenis
 
-**Sections**
-- **Journey:** a scroll-driven synthwave road where milestones drive toward you as neon signs
-- **Armory:** skills shown as double-bladed weapons, one per skill area
-- **Contact terminal:** an interactive shell for getting in touch
-
 **Run locally**
 ```bash
 git clone https://github.com/AnupamMI/anupam-portfolio.git
