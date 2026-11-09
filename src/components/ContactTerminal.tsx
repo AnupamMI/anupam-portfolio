@@ -285,7 +285,6 @@ export default function ContactTerminal() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
-                autoFocus
                 spellCheck={false}
                 autoCapitalize="off"
                 autoComplete="off"

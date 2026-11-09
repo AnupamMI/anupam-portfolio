@@ -143,7 +143,7 @@ export default function Hero() {
             </div>
 
             <div className="mt-10 flex flex-wrap gap-2">
-              {["POMDPs", "DRQN", "Sim2Real"].map((t) => (
+              {["POMDPs", "DRQN", "IEEE Best Paper"].map((t) => (
                 <span
                   key={t}
                   className="text-[10px] font-mono text-white/60 bg-white/[0.05] border border-white/[0.10]
@@ -188,9 +188,8 @@ export default function Hero() {
             </p>
 
             <p className="text-[14px] md:text-[15px] text-white/50 max-w-sm mx-auto leading-relaxed font-serif font-normal">
-              Building intelligent systems at the intersection of deep
-              reinforcement learning, embedded hardware, and user-centric
-              design.
+              Building computer-vision systems for medical diagnostics, and
+              researching how agents reason when they can't see everything.
             </p>
           </div>
         </TiltCard>
@@ -208,25 +207,25 @@ export default function Hero() {
               <div className="flex items-center gap-2 mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#7EE7FF] shadow-[0_0_6px_#7EE7FF]" />
                 <span className="text-[10px] tracking-[0.2em] uppercase text-white/40 font-mono">
-                  Product Thinking
+                  Medical AI · Edge
                 </span>
               </div>
 
               <h2 className="font-serif text-4xl leading-snug text-white/92 mb-5 tracking-tight">
-                Where edge <br />
-                silicon meets <br />
-                architecture.
+                Vision models <br />
+                that run where <br />
+                care happens.
               </h2>
 
               <p className="text-[14px] text-white/50 leading-relaxed font-light mt-5">
-                I ship end-to-end: from quantized neural kernels on constrained
-                edge microcontrollers to real-time control planes and refined
-                developer tools.
+                Cervical-cytology screening on NVIDIA Jetson AGX Orin at MiMD Lab,
+                IIT Delhi, plus the tools around it, like Annotation ExE, my live
+                labeling platform.
               </p>
             </div>
 
             <div className="mt-10 flex flex-wrap gap-2">
-              {["Edge AI", "Quantization", "Infra"].map((t) => (
+              {["Jetson Orin", "Computer Vision", "Pathology"].map((t) => (
                 <span
                   key={t}
                   className="text-[10px] font-mono text-white/60 bg-white/[0.05] border border-white/[0.10]

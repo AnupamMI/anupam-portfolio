@@ -7,6 +7,7 @@ import Skills from "./components/Skills";
 import Research from "./components/Research";
 import ContactTerminal from "./components/ContactTerminal";
 import AppleBackground from "./components/AppleBackground";
+import RoadTrip from "./components/RoadTrip";
 
 export default function App() {
   useSmoothScroll();
@@ -18,6 +19,7 @@ export default function App() {
         <Nav />
         <main className="space-y-0">
           <Hero />
+          <RoadTrip />
           <SpotlightMatrix />
           <About />
           <Skills />

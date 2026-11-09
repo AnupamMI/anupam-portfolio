@@ -5,10 +5,11 @@ import { projects, type Project } from "../data";
 // ─── Bento layout config ──────────────────────────────────────────────────────
 
 const LAYOUT = [
-  { idx: 0, className: "md:col-span-2 lg:col-span-2" }, // wide feature
-  { idx: 2, className: "md:col-span-1 lg:col-span-1" }, // tall-ish
-  { idx: 3, className: "md:col-span-1 lg:col-span-1" }, // standard
-  { idx: 1, className: "md:col-span-2 lg:col-span-2" }, // wide feature
+  { idx: 0, className: "md:col-span-2 lg:col-span-2" }, // Annotation ExE — wide feature
+  { idx: 2, className: "md:col-span-1 lg:col-span-1" }, // DRQN
+  { idx: 1, className: "md:col-span-1 lg:col-span-1" }, // SignTalk
+  { idx: 3, className: "md:col-span-1 lg:col-span-1" }, // CareLink
+  { idx: 4, className: "md:col-span-1 lg:col-span-1" }, // Skill Gap Radar
 ];
 
 // ─── Root section ─────────────────────────────────────────────────────────────
@@ -271,7 +272,7 @@ const TABS = [
   { id: "overview",      label: "Overview"      },
   { id: "architecture",  label: "Architecture"  },
   { id: "metrics",       label: "Metrics"       },
-  { id: "repository",    label: "Repository"    },
+  { id: "repository",    label: "Links"         },
   { id: "learnings",     label: "Learnings"     },
 ];
 
@@ -615,7 +616,7 @@ function MetricsTab({ project }: { project: Project }) {
 function RepositoryTab({ project }: { project: Project }) {
   return (
     <TabWrapper>
-      <TabHeading>Repository</TabHeading>
+      <TabHeading>Links</TabHeading>
 
       <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-8">
         <div className="flex items-start justify-between mb-6 gap-4">
@@ -649,8 +650,23 @@ function RepositoryTab({ project }: { project: Project }) {
           ))}
         </div>
 
+<div className="flex flex-wrap gap-3">
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl
+              border border-[#7EE7FF]/30 bg-[#7EE7FF]/10
+              font-mono text-[11px] text-[#7EE7FF] hover:bg-[#7EE7FF]/20 transition-all"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#7EE7FF] animate-pulse" />
+            Open live demo ↗
+          </a>
+        )}
+        {project.repository && (
         <a
-          href={project.repository ?? "#"}
+          href={project.repository}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl
@@ -672,6 +688,8 @@ function RepositoryTab({ project }: { project: Project }) {
           </svg>
           View on GitHub ↗
         </a>
+        )}
+        </div>
       </div>
     </TabWrapper>
   );

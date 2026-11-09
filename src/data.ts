@@ -9,10 +9,35 @@ export type Project = {
   metrics: { label: string; value: string }[];
   stack: string[];
   accent: string;
-  repository: string;
+  repository?: string;
+  liveUrl?: string;
 };
 
 export const projects: Project[] = [
+  {
+    id: "annotation-exe",
+    title: "Annotation ExE",
+    category: "Computer Vision • Full-Stack Platform",
+    year: "2026",
+    tagline: "Image annotation platform — from microscope slides to drone photos. Live, with a public demo.",
+    overview:
+      "A web platform for labeling images where people make every labeling decision and the software handles the data work around them: tracking progress, importing other tools' labels, answering questions in plain language and building datasets. Whole-slide microscopy images are streamed as on-demand deep-zoom tiles.",
+    architecture: [
+      "Single Docker image serving landing page, app and API from one address",
+      "OpenSlide whole-slide support: 46,000 × 32,893 px slides at 117 MB peak memory",
+      "PostgreSQL + PostGIS with append-only versioned annotations",
+      "Plain-language questions answered through a read-only database role",
+    ],
+    metrics: [
+      { label: "Status", value: "Live" },
+      { label: "Peak memory", value: "117 MB" },
+      { label: "API tests", value: "~50" },
+      { label: "Formats", value: "YOLO · COCO · CVAT" },
+    ],
+    stack: ["React", "TypeScript", "FastAPI", "PostgreSQL", "PostGIS", "OpenSlide", "Docker"],
+    accent: "#7EE7FF",
+    liveUrl: "https://annotation-exe.onrender.com/demo/",
+  },
   {
     id: "signtalk",
     title: "SignTalk",
@@ -121,6 +146,19 @@ export type Experience = {
 };
 
 export const experiences: Experience[] = [
+  {
+    id: "exp-0",
+    role: "AI/ML Intern",
+    org: "Ayukriyam Innovations × MiMD Lab, IIT Delhi",
+    period: "Jul 2026 — Present",
+    summary:
+      "Building the computer-vision pipeline for AI-assisted cervical cytology screening that runs on the edge (NVIDIA Jetson AGX Orin).",
+    highlights: [
+      "4-class classification (NILM · LSIL · HSIL · SCC): 91.94% test macro-F1 with EfficientNet-B0 V2 + TTA",
+      "Benchmarking RF-DETR, DETR and DINO detectors, with CVAT annotation and QC",
+      "54-page literature review across 20+ papers on AI in cervical cytology",
+    ],
+  },
   {
     id: "exp-1",
     role: "AI/ML Researcher",
@@ -270,7 +308,7 @@ export const skillCategories: SkillCategory[] = [
 
 export const stats = [
   { label: "CGPA", value: "8.7", suffix: "/10" },
-  { label: "Projects", value: "4", suffix: "" },
+  { label: "Projects", value: "5", suffix: "" },
   { label: "Years", value: "4", suffix: "" },
   { label: "Awards", value: "3", suffix: "" },
 ];
@@ -278,6 +316,7 @@ export const stats = [
 export const navSections = [
   { id: "hero", label: "Index" },
   { id: "work", label: "Work" },
+  { id: "journey", label: "Journey" },
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "research", label: "Research" },
