@@ -37,12 +37,7 @@ export default function Nav() {
   };
 
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50"
-    >
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div
         className={`transition-all duration-500 ${
           scrolled
@@ -89,11 +84,7 @@ export default function Nav() {
                 }}
               >
                 {active === s.id && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/[0.10]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
+                  <span className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/[0.10]" />
                 )}
                 <span className="relative z-10">{s.label}</span>
               </button>
@@ -199,6 +190,6 @@ export default function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

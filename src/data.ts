@@ -315,8 +315,8 @@ export const stats = [
 
 export const navSections = [
   { id: "hero", label: "Index" },
-  { id: "work", label: "Work" },
   { id: "journey", label: "Journey" },
+  { id: "work", label: "Work" },
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "research", label: "Research" },
